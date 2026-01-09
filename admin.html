@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Toko Lumintu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="dark bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen">
+    
+    <!-- Animated Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute w-96 h-96 bg-purple-500/20 rounded-full blur-3xl -top-48 -left-48 animate-pulse"></div>
+        <div class="absolute w-96 h-96 bg-blue-500/20 rounded-full blur-3xl -bottom-48 -right-48 animate-pulse delay-700"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 min-h-screen p-6">
+        <div class="max-w-5xl mx-auto">
+            
+            <!-- Header -->
+            <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-2xl p-6 mb-6 shadow-xl">
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl flex items-center justify-center shadow-lg">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold text-white">Admin Dashboard</h1>
+                            <p class="text-gray-400 text-sm">Kelola Toko Lumintu</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <a href="index.html" class="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2.5 rounded-xl font-medium transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            </svg>
+                            <span>Home</span>
+                        </a>
+                        <button onclick="logout()" class="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2.5 rounded-xl font-medium transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="space-y-6">
+                
+                <!-- Informasi Toko Section -->
+                <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-2xl p-6 shadow-xl">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-white">Informasi Toko</h2>
+                    </div>
+
+                    <div class="space-y-5">
+                        <!-- Lokasi -->
+                        <div>
+                            <label class="block text-gray-300 font-medium mb-2">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    Lokasi Toko
+                                </span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="lokasi" 
+                                placeholder="Contoh: Jl. Merdeka No. 123, Salatiga"
+                                class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                            >
+                        </div>
+
+                        <!-- Jam Operasional -->
+                        <div>
+                            <label class="block text-gray-300 font-medium mb-2">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    Jam Operasional
+                                </span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="jamBuka" 
+                                placeholder="Contoh: 08:00 - 22:00"
+                                class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                            >
+                        </div>
+
+                        <!-- Nomor CS -->
+                        <div>
+                            <label class="block text-gray-300 font-medium mb-2">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                    </svg>
+                                    Nomor Customer Service
+                                </span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="nomorCS" 
+                                placeholder="Contoh: +62 812-3456-7890"
+                                class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Promo Section -->
+                <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-2xl p-6 shadow-xl">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-white">Kelola Promo</h2>
+                    </div>
+
+                    <!-- Daftar Promo -->
+                    <div id="promo-list" class="space-y-3 mb-5"></div>
+
+                    <!-- Tambah Promo -->
+                    <div class="flex gap-3">
+                        <input 
+                            type="text" 
+                            id="new-promo" 
+                            placeholder="Tambahkan promo baru..."
+                            class="flex-1 px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                            onkeypress="if(event.key==='Enter') tambahPromo()"
+                        >
+                        <button 
+                            onclick="tambahPromo()"
+                            class="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            <span>Tambah</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Kebijakan Retur -->
+                <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-2xl p-6 shadow-xl">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-white">Kebijakan Retur Barang</h2>
+                    </div>
+
+                    <textarea 
+                        id="kebijakanRetur" 
+                        rows="5"
+                        placeholder="Contoh: Barang dapat diretur dalam 7 hari dengan syarat produk masih dalam kondisi baik, belum dibuka, dan menyertakan struk pembelian..."
+                        class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all resize-none"
+                    ></textarea>
+                </div>
+
+                <!-- Metode Pembayaran -->
+                <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-2xl p-6 shadow-xl">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-white">Metode Pembayaran</h2>
+                    </div>
+
+                    <div id="payment-list" class="space-y-3 mb-5"></div>
+
+                    <div class="flex gap-3">
+                        <input 
+                            type="text" 
+                            id="new-payment" 
+                            placeholder="Contoh: Cash, Transfer BCA, GoPay, OVO..."
+                            class="flex-1 px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                            onkeypress="if(event.key==='Enter') tambahPayment()"
+                        >
+                        <button 
+                            onclick="tambahPayment()"
+                            class="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            <span>Tambah</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cara Pemesanan Online -->
+                <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-2xl p-6 shadow-xl">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-white">Cara Pemesanan Online</h2>
+                    </div>
+
+                    <textarea 
+                        id="caraPesan" 
+                        rows="6"
+                        placeholder="Contoh:&#10;1. Hubungi CS via WhatsApp&#10;2. Kirim daftar barang yang ingin dibeli&#10;3. Konfirmasi harga dan ongkir&#10;4. Transfer pembayaran&#10;5. Kirim bukti transfer&#10;6. Barang akan dikirim"
+                        class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all resize-none"
+                    ></textarea>
+                </div>
+
+                <!-- Info Pengiriman -->
+                <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-2xl p-6 shadow-xl">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-white">Informasi Pengiriman</h2>
+                    </div>
+
+                    <textarea 
+                        id="infoPengiriman" 
+                        rows="5"
+                        placeholder="Contoh:&#10;- Gratis ongkir untuk area Salatiga&#10;- Ongkir luar kota Rp 10.000 - Rp 25.000&#10;- Estimasi pengiriman 1-3 hari kerja&#10;- Pengiriman via kurir toko atau JNE/J&T"
+                        class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all resize-none"
+                    ></textarea>
+                </div>
+
+                <!-- Save Button -->
+                <button 
+                    onclick="simpanData()"
+                    class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-4 rounded-xl font-bold text-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/50 flex items-center justify-center gap-3"
+                >
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+                    </svg>
+                    <span>Simpan Semua Perubahan</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Alert -->
+    <div id="success-alert" class="hidden fixed top-6 right-6 bg-green-500 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 z-50 animate-slide-in">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span class="font-semibold">Data berhasil disimpan!</span>
+    </div>
+
+    <script>
+        // Check login
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+
+        // Data dengan default values
+        let promoList = JSON.parse(localStorage.getItem('promo') || '["Diskon 20% untuk pembelian di atas Rp 100.000", "Gratis ongkir untuk area Salatiga", "Buy 2 Get 1 untuk produk pilihan"]');
+        
+        let paymentList = JSON.parse(localStorage.getItem('payment') || '["Cash (Tunai)", "Transfer Bank (BCA, BRI, Mandiri)", "E-Wallet (GoPay, OVO, DANA, ShopeePay)", "QRIS"]');
+
+        // Load data saat halaman dibuka
+        window.onload = function() {
+            document.getElementById('lokasi').value = localStorage.getItem('lokasi') || 'Jl. Merdeka No. 123, Salatiga, Jawa Tengah';
+            document.getElementById('jamBuka').value = localStorage.getItem('jamBuka') || '08:00 - 22:00';
+            document.getElementById('nomorCS').value = localStorage.getItem('nomorCS') || '+62 812-3456-7890';
+            
+            document.getElementById('kebijakanRetur').value = localStorage.getItem('kebijakanRetur') || 'Barang dapat diretur dalam 7 hari dengan syarat:\n- Produk masih dalam kondisi baik dan segel belum dibuka\n- Menyertakan struk pembelian asli\n- Untuk produk makanan/minuman tidak dapat diretur\n- Biaya pengiriman retur ditanggung pembeli';
+            
+            document.getElementById('caraPesan').value = localStorage.getItem('caraPesan') || '1. Hubungi CS kami via WhatsApp\n2. Kirim daftar barang yang ingin dibeli\n3. CS akan konfirmasi harga dan ketersediaan\n4. Konfirmasi alamat dan metode pengiriman\n5. Lakukan pembayaran sesuai instruksi\n6. Kirim bukti transfer ke CS\n7. Barang akan segera diproses dan dikirim';
+            
+            document.getElementById('infoPengiriman').value = localStorage.getItem('infoPengiriman') || '- Gratis ongkir untuk area Salatiga kota\n- Ongkir luar kota: Rp 10.000 - Rp 25.000 (tergantung jarak)\n- Estimasi pengiriman: 1-3 hari kerja\n- Pengiriman via kurir toko atau ekspedisi (JNE/J&T)\n- Tracking resi akan dikirim via WhatsApp';
+            
+            renderPromoList();
+            renderPaymentList();
+        };
+
+        // Render daftar promo
+        function renderPromoList() {
+            const container = document.getElementById('promo-list');
+            
+            if (promoList.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                        </svg>
+                        <p>Belum ada promo. Tambahkan promo pertama!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = promoList.map((promo, index) => `
+                <div class="bg-gray-700/50 border border-gray-600 p-4 rounded-xl flex items-center justify-between group hover:bg-gray-700 transition-all">
+                    <div class="flex items-center gap-3 flex-1">
+                        <svg class="w-5 h-5 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                        </svg>
+                        <span class="text-gray-200">${promo}</span>
+                    </div>
+                    <button 
+                        onclick="hapusPromo(${index})"
+                        class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-all flex items-center gap-2"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                        Hapus
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Render metode pembayaran
+        function renderPaymentList() {
+            const container = document.getElementById('payment-list');
+            
+            if (paymentList.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <p>Belum ada metode pembayaran. Tambahkan metode pertama!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = paymentList.map((payment, index) => `
+                <div class="bg-gray-700/50 border border-gray-600 p-4 rounded-xl flex items-center justify-between group hover:bg-gray-700 transition-all">
+                    <div class="flex items-center gap-3 flex-1">
+                        <svg class="w-5 h-5 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                        </svg>
+                        <span class="text-gray-200">${payment}</span>
+                    </div>
+                    <button 
+                        onclick="hapusPayment(${index})"
+                        class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-all flex items-center gap-2"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                        Hapus
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Tambah promo
+        function tambahPromo() {
+            const input = document.getElementById('new-promo');
+            const promo = input.value.trim();
+            
+            if (promo === '') {
+                alert('⚠️ Promo tidak boleh kosong!');
+                return;
+            }
+            
+            promoList.push(promo);
+            input.value = '';
+            renderPromoList();
+        }
+
+        // Hapus promo
+        function hapusPromo(index) {
+            if (confirm('Yakin ingin menghapus promo ini?')) {
+                promoList.splice(index, 1);
+                renderPromoList();
+            }
+        }
+
+        // Tambah metode pembayaran
+        function tambahPayment() {
+            const input = document.getElementById('new-payment');
+            const payment = input.value.trim();
+            
+            if (payment === '') {
+                alert('⚠️ Metode pembayaran tidak boleh kosong!');
+                return;
+            }
+            
+            paymentList.push(payment);
+            input.value = '';
+            renderPaymentList();
+        }
+
+        // Hapus metode pembayaran
+        function hapusPayment(index) {
+            if (confirm('Yakin ingin menghapus metode pembayaran ini?')) {
+                paymentList.splice(index, 1);
+                renderPaymentList();
+            }
+        }
+
+        // Simpan data
+        function simpanData() {
+            const lokasi = document.getElementById('lokasi').value.trim();
+            const jamBuka = document.getElementById('jamBuka').value.trim();
+            const nomorCS = document.getElementById('nomorCS').value.trim();
+            const kebijakanRetur = document.getElementById('kebijakanRetur').value.trim();
+            const caraPesan = document.getElementById('caraPesan').value.trim();
+            const infoPengiriman = document.getElementById('infoPengiriman').value.trim();
+            
+            // Validasi
+            if (!lokasi || !jamBuka || !nomorCS) {
+                alert('⚠️ Informasi toko (Lokasi, Jam Buka, Nomor CS) harus diisi!');
+                return;
+            }
+            
+            // Simpan ke localStorage
+            localStorage.setItem('lokasi', lokasi);
+            localStorage.setItem('jamBuka', jamBuka);
+            localStorage.setItem('nomorCS', nomorCS);
+            localStorage.setItem('promo', JSON.stringify(promoList));
+            localStorage.setItem('payment', JSON.stringify(paymentList));
+            localStorage.setItem('kebijakanRetur', kebijakanRetur);
+            localStorage.setItem('caraPesan', caraPesan);
+            localStorage.setItem('infoPengiriman', infoPengiriman);
+            
+            // Tampilkan success alert
+            const alert = document.getElementById('success-alert');
+            alert.classList.remove('hidden');
+            
+            setTimeout(() => {
+                alert.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('Yakin ingin logout?')) {
+                sessionStorage.removeItem('isLoggedIn');
+                sessionStorage.removeItem('adminName');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes slide-in {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .animate-slide-in {
+            animation: slide-in 0.3s ease;
+        }
+        
+        .delay-700 {
+            animation-delay: 0.7s;
+        }
+    </style>
+</body>
+</html>

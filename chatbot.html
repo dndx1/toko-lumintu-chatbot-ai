@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot AI - Toko Lumintu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="dark bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen">
+    
+    <!-- Animated Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute w-96 h-96 bg-purple-500/20 rounded-full blur-3xl -top-48 -right-48 animate-pulse"></div>
+        <div class="absolute w-96 h-96 bg-blue-500/20 rounded-full blur-3xl -bottom-48 -left-48 animate-pulse delay-700"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 min-h-screen flex items-center justify-center p-4 md:p-6">
+        <div class="w-full max-w-4xl h-[90vh] flex flex-col bg-gray-800/50 backdrop-blur-lg border border-gray-700 rounded-2xl shadow-2xl overflow-hidden">
+            
+            <!-- Chat Header -->
+            <div class="bg-gradient-to-r from-purple-600 to-purple-700 p-5 flex items-center justify-between border-b border-purple-500/50">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-white">Lumintu AI Assistant</h2>
+                        <p class="text-purple-200 text-sm flex items-center gap-2">
+                            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                            <span id="status">Online - Siap Membantu</span>
+                        </p>
+                    </div>
+                </div>
+                <a href="index.html" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-medium text-white transition-all flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    Home
+                </a>
+            </div>
+
+            <!-- Chat Box -->
+            <div id="chat-box" class="flex-1 p-6 overflow-y-auto space-y-4 bg-gray-900/30">
+                <!-- Welcome Message -->
+                <div class="flex gap-3 animate-fade-in">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-1 bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 rounded-2xl rounded-tl-sm shadow-lg max-w-2xl">
+                        <p class="leading-relaxed">
+                            👋 <strong>Halo! Selamat datang di Toko Lumintu</strong><br><br>
+                            Saya adalah AI Assistant yang siap membantu Anda dengan:<br>
+                            🎉 Informasi promo terkini<br>
+                            📍 Lokasi & jam operasional<br>
+                            💳 Metode pembayaran<br>
+                            🛒 Cara pemesanan online<br>
+                            🚚 Info pengiriman & ongkir<br>
+                            🔄 Kebijakan retur barang<br>
+                            📞 Kontak customer service<br><br>
+                            Silakan tanyakan apapun! 😊
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="p-5 bg-gray-800/70 backdrop-blur-lg border-t border-gray-700">
+                <!-- Quick Action Buttons -->
+                <div class="flex gap-2 mb-3 overflow-x-auto pb-2 scrollbar-hide">
+                    <button onclick="sendQuickMessage('Apa promo hari ini?')" class="flex-shrink-0 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 px-4 py-2 rounded-lg text-sm font-medium transition-all border border-purple-500/30">
+                        🎉 Promo
+                    </button>
+                    <button onclick="sendQuickMessage('Dimana lokasi toko?')" class="flex-shrink-0 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 px-4 py-2 rounded-lg text-sm font-medium transition-all border border-purple-500/30">
+                        📍 Lokasi
+                    </button>
+                    <button onclick="sendQuickMessage('Metode pembayaran apa saja?')" class="flex-shrink-0 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 px-4 py-2 rounded-lg text-sm font-medium transition-all border border-purple-500/30">
+                        💳 Pembayaran
+                    </button>
+                    <button onclick="sendQuickMessage('Cara pesan online gimana?')" class="flex-shrink-0 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 px-4 py-2 rounded-lg text-sm font-medium transition-all border border-purple-500/30">
+                        🛒 Pesan
+                    </button>
+                    <button onclick="sendQuickMessage('Info pengiriman')" class="flex-shrink-0 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 px-4 py-2 rounded-lg text-sm font-medium transition-all border border-purple-500/30">
+                        🚚 Kirim
+                    </button>
+                </div>
+
+                <!-- Input Form -->
+                <form onsubmit="sendMessage(event)" class="flex gap-3">
+                    <input 
+                        type="text" 
+                        id="user-input" 
+                        placeholder="Ketik pertanyaan Anda..."
+                        class="flex-1 px-5 py-3 bg-gray-700/50 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition-all"
+                        autocomplete="off"
+                    >
+                    <button 
+                        type="submit"
+                        class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50 flex items-center gap-2"
+                    >
+                        <span class="hidden md:inline">Kirim</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Configuration - GANTI DENGAN API KEY ANDA
+        const API_KEY = "AIzaSyCsl_doHoUvVtf7QjjWYGIMF-LY8PjhTFA";
+const API_URL =
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + API_KEY;
+
+        // Load data toko dari localStorage
+        const tokoData = {
+            nama: 'Toko Lumintu',
+            lokasi: localStorage.getItem('lokasi') || 'Jl. Merdeka No. 123, Salatiga, Jawa Tengah',
+            jamBuka: localStorage.getItem('jamBuka') || '08:00 - 22:00',
+            nomorCS: localStorage.getItem('nomorCS') || '+62 812-3456-7890',
+            promo: JSON.parse(localStorage.getItem('promo') || '["Diskon 20% untuk pembelian di atas Rp 100.000", "Gratis ongkir untuk area Salatiga", "Buy 2 Get 1 untuk produk pilihan"]'),
+            payment: JSON.parse(localStorage.getItem('payment') || '["Cash (Tunai)", "Transfer Bank (BCA, BRI, Mandiri)", "E-Wallet (GoPay, OVO, DANA, ShopeePay)", "QRIS"]'),
+            kebijakanRetur: localStorage.getItem('kebijakanRetur') || 'Barang dapat diretur dalam 7 hari dengan syarat:\n- Produk masih dalam kondisi baik dan segel belum dibuka\n- Menyertakan struk pembelian asli\n- Untuk produk makanan/minuman tidak dapat diretur\n- Biaya pengiriman retur ditanggung pembeli',
+            caraPesan: localStorage.getItem('caraPesan') || '1. Hubungi CS kami via WhatsApp\n2. Kirim daftar barang yang ingin dibeli\n3. CS akan konfirmasi harga dan ketersediaan\n4. Konfirmasi alamat dan metode pengiriman\n5. Lakukan pembayaran sesuai instruksi\n6. Kirim bukti transfer ke CS\n7. Barang akan segera diproses dan dikirim',
+            infoPengiriman: localStorage.getItem('infoPengiriman') || '- Gratis ongkir untuk area Salatiga kota\n- Ongkir luar kota: Rp 10.000 - Rp 25.000 (tergantung jarak)\n- Estimasi pengiriman: 1-3 hari kerja\n- Pengiriman via kurir toko atau ekspedisi (JNE/J&T)\n- Tracking resi akan dikirim via WhatsApp'
+        };
+
+        // Send message function
+        function sendMessage(event) {
+            if (event) event.preventDefault();
+            
+            const input = document.getElementById('user-input');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            addUserMessage(message);
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Get AI response
+            getAIResponse(message);
+        }
+
+        // Quick message function
+        function sendQuickMessage(message) {
+            document.getElementById('user-input').value = message;
+            sendMessage();
+        }
+
+        // Add user message to chat
+        function addUserMessage(message) {
+            const chatBox = document.getElementById('chat-box');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex gap-3 justify-end animate-fade-in';
+            messageDiv.innerHTML = `
+                <div class="bg-gray-700 text-white p-4 rounded-2xl rounded-tr-sm shadow-lg max-w-2xl">
+                    <p class="leading-relaxed">${escapeHtml(message)}</p>
+                </div>
+                <div class="w-10 h-10 bg-gray-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </div>
+            `;
+            chatBox.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // Add bot message to chat
+        function addBotMessage(message) {
+            const chatBox = document.getElementById('chat-box');
+            
+            // Remove typing indicator
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex gap-3 animate-fade-in';
+            messageDiv.innerHTML = `
+                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1 bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 rounded-2xl rounded-tl-sm shadow-lg max-w-2xl">
+                    <p class="leading-relaxed">${formatMessage(message)}</p>
+                </div>
+            `;
+            chatBox.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            const chatBox = document.getElementById('chat-box');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'flex gap-3 animate-fade-in';
+            typingDiv.innerHTML = `
+                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <div class="bg-gray-700 text-white p-4 rounded-2xl rounded-tl-sm shadow-lg">
+                    <div class="flex gap-1">
+                        <div class="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-white rounded-full animate-bounce delay-100"></div>
+                        <div class="w-2 h-2 bg-white rounded-full animate-bounce delay-200"></div>
+                    </div>
+                </div>
+            `;
+            chatBox.appendChild(typingDiv);
+            scrollToBottom();
+        }
+
+        // Get AI response using Gemini API
+        async function getAIResponse(userMessage) {
+            const systemPrompt = `Kamu adalah chatbot AI customer service untuk TOKO LUMINTU, sebuah minimarket modern.
+
+ATURAN PENTING:
+1. Jawab dengan ramah, natural, dan profesional menggunakan emoji yang relevan
+2. Jika pertanyaan tentang data toko (promo, lokasi, jam, payment, retur, dll) → Berikan informasi lengkap dan detail
+3. Jika komplain/masalah serius → Arahkan ke Customer Service untuk penanganan langsung
+4. Jika data tidak tersedia atau pertanyaan di luar konteks toko → Arahkan ke CS
+5. SELALU gunakan data toko yang tersedia di bawah ini
+6. Format jawaban dengan rapi menggunakan line break dan bullet points jika perlu
+
+==========================================
+DATA TOKO LUMINTU
+==========================================
+
+📍 LOKASI TOKO:
+${tokoData.lokasi}
+
+🕐 JAM OPERASIONAL:
+${tokoData.jamBuka}
+
+📞 CUSTOMER SERVICE:
+${tokoData.nomorCS}
+
+🎉 PROMO HARI INI:
+${tokoData.promo.map((p, i) => `${i + 1}. ${p}`).join('\n')}
+
+💳 METODE PEMBAYARAN:
+${tokoData.payment.map((p, i) => `${i + 1}. ${p}`).join('\n')}
+
+🔄 KEBIJAKAN RETUR:
+${tokoData.kebijakanRetur}
+
+🛒 CARA PEMESANAN ONLINE:
+${tokoData.caraPesan}
+
+🚚 INFORMASI PENGIRIMAN:
+${tokoData.infoPengiriman}
+
+==========================================
+
+PERTANYAAN USER: "${userMessage}"
+
+Jawab dengan ramah, informatif, dan sesuai konteks pertanyaan!`;
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: systemPrompt
+                            }]
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.candidates && data.candidates[0]) {
+                    const reply = data.candidates[0].content.parts[0].text;
+                    addBotMessage(reply);
+                } else {
+                    addBotMessage('Maaf, saya sedang mengalami gangguan. Silakan hubungi Customer Service kami di ' + tokoData.nomorCS + ' untuk bantuan lebih lanjut. 😊');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addBotMessage('Maaf, terjadi kesalahan koneksi. Silakan coba lagi atau hubungi Customer Service kami di ' + tokoData.nomorCS + '. 🙏');
+            }
+        }
+
+        // Format message (convert newlines to <br>)
+        function formatMessage(message) {
+            return message
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>');
+        }
+
+        // Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Scroll to bottom of chat
+        function scrollToBottom() {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+
+    <style>
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fade-in 0.3s ease;
+        }
+        
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-700 {
+            animation-delay: 0.7s;
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #chat-box::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chat-box::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        #chat-box::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.5);
+            border-radius: 10px;
+        }
+
+        #chat-box::-webkit-scrollbar-thumb:hover {
+            background: rgba(139, 92, 246, 0.7);
+        }
+    </style>
+</body>
+</html>
