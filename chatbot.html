@@ -225,6 +225,9 @@
 
         // Get AI response using Gemini API
         async function getAIResponse(userMessage) {
+            console.log('🚀 Mulai request ke API...');
+            console.log('📝 User message:', userMessage);
+            
             const systemPrompt = `Kamu adalah chatbot AI customer service untuk TOKO LUMINTU, sebuah minimarket modern.
 
 ATURAN PENTING:
@@ -269,7 +272,11 @@ PERTANYAAN USER: "${userMessage}"
 
 Jawab dengan ramah, informatif, dan sesuai konteks pertanyaan!`;
 
+            console.log('📤 Mengirim request ke:', API_URL);
+
             try {
+                console.log('⏳ Fetching...');
+                
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: {
@@ -280,10 +287,14 @@ Jawab dengan ramah, informatif, dan sesuai konteks pertanyaan!`;
                     })
                 });
 
+                console.log('📥 Response status:', response.status);
+                console.log('📥 Response ok:', response.ok);
+
                 const data = await response.json();
 
                 // 🔍 DEBUG: Log response untuk debugging
                 console.log('📦 Response dari API:', data);
+                console.log('📦 Response JSON:', JSON.stringify(data, null, 2));
 
                 let reply = '';
 
