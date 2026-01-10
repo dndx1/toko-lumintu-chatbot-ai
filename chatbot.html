@@ -113,21 +113,20 @@
     </div>
 
     <script>
-        // API Configuration - GANTI DENGAN API KEY ANDA
-        // Gunakan Vercel serverless function
-const API_URL = "https://toko-lumintu-chatbot-ai.vercel.app/api/gemini";
-// Ganti URL dengan URL Vercel Anda yang sebenarnya!
+        // API Configuration
+        const API_URL = "https://toko-lumintu-chatbot-ai.vercel.app/api/gemini";
+        
         // Load data toko dari localStorage
         const tokoData = {
             nama: 'Toko Lumintu',
-            lokasi: localStorage.getItem('lokasi') || 'Jl. Merdeka No. 123, Salatiga, Jawa Tengah',
+            lokasi: localStorage.getItem('lokasi') || 'Jl. Jeketro-Truko No. 123, Kec. Gubug, Kab. Grobogan, Jawa Tengah',
             jamBuka: localStorage.getItem('jamBuka') || '08:00 - 22:00',
             nomorCS: localStorage.getItem('nomorCS') || '+62 812-3456-7890',
-            promo: JSON.parse(localStorage.getItem('promo') || '["Diskon 20% untuk pembelian di atas Rp 100.000", "Gratis ongkir untuk area Salatiga", "Buy 2 Get 1 untuk produk pilihan"]'),
+            promo: JSON.parse(localStorage.getItem('promo') || '["Diskon 20% untuk pembelian di atas Rp 100.000", "Gratis ongkir untuk area Jeketro-Truko", "Buy 2 Get 1 untuk produk pilihan"]'),
             payment: JSON.parse(localStorage.getItem('payment') || '["Cash (Tunai)", "Transfer Bank (BCA, BRI, Mandiri)", "E-Wallet (GoPay, OVO, DANA, ShopeePay)", "QRIS"]'),
             kebijakanRetur: localStorage.getItem('kebijakanRetur') || 'Barang dapat diretur dalam 7 hari dengan syarat:\n- Produk masih dalam kondisi baik dan segel belum dibuka\n- Menyertakan struk pembelian asli\n- Untuk produk makanan/minuman tidak dapat diretur\n- Biaya pengiriman retur ditanggung pembeli',
             caraPesan: localStorage.getItem('caraPesan') || '1. Hubungi CS kami via WhatsApp\n2. Kirim daftar barang yang ingin dibeli\n3. CS akan konfirmasi harga dan ketersediaan\n4. Konfirmasi alamat dan metode pengiriman\n5. Lakukan pembayaran sesuai instruksi\n6. Kirim bukti transfer ke CS\n7. Barang akan segera diproses dan dikirim',
-            infoPengiriman: localStorage.getItem('infoPengiriman') || '- Gratis ongkir untuk area Salatiga kota\n- Ongkir luar kota: Rp 10.000 - Rp 25.000 (tergantung jarak)\n- Estimasi pengiriman: 1-3 hari kerja\n- Pengiriman via kurir toko atau ekspedisi (JNE/J&T)\n- Tracking resi akan dikirim via WhatsApp'
+            infoPengiriman: localStorage.getItem('infoPengiriman') || '- Gratis ongkir untuk area Jeketro-Truko kota\n- Ongkir luar kota: Rp 10.000 - Rp 25.000 (tergantung jarak)\n- Estimasi pengiriman: 1-3 hari kerja\n- Pengiriman via kurir toko atau ekspedisi (JNE/J&T)\n- Tracking resi akan dikirim via WhatsApp'
         };
 
         // Send message function
@@ -271,31 +270,55 @@ PERTANYAAN USER: "${userMessage}"
 Jawab dengan ramah, informatif, dan sesuai konteks pertanyaan!`;
 
             try {
-        // ✅ Kirim ke Vercel function (BUKAN ke Gemini langsung)
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{
-                        text: systemPrompt
-                    }]
-                }]
-            })
-        });
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: systemPrompt
+                    })
+                });
 
-        const data = await response.json();
+                const data = await response.json();
 
-                if (data.candidates && data.candidates[0]) {
-                    const reply = data.candidates[0].content.parts[0].text;
+                // 🔍 DEBUG: Log response untuk debugging
+                console.log('📦 Response dari API:', data);
+
+                let reply = '';
+
+                // ✅ Coba berbagai kemungkinan struktur response
+                if (data && data.candidates && data.candidates.length > 0) {
+                    const candidate = data.candidates[0];
+                    
+                    // Struktur normal Gemini API
+                    if (candidate.content && candidate.content.parts && candidate.content.parts.length > 0) {
+                        reply = candidate.content.parts[0].text;
+                    }
+                    // Fallback: Jika text langsung di parts
+                    else if (candidate.parts && candidate.parts.length > 0) {
+                        reply = candidate.parts[0].text;
+                    }
+                    // Fallback: Jika text langsung di candidate
+                    else if (candidate.text) {
+                        reply = candidate.text;
+                    }
+                }
+
+                // ✅ Cek apakah reply berhasil diambil
+                if (reply && reply.trim() !== '') {
+                    console.log('✅ Reply berhasil:', reply);
                     addBotMessage(reply);
                 } else {
-                    addBotMessage('Maaf, saya sedang mengalami gangguan. Silakan hubungi Customer Service kami di ' + tokoData.nomorCS + ' untuk bantuan lebih lanjut. 😊');
+                    console.error('❌ Tidak ada text di response:', data);
+                    addBotMessage(
+                        'Maaf, sistem sedang sibuk 🙏 Silakan coba lagi sebentar atau hubungi Customer Service kami di ' +
+                        tokoData.nomorCS
+                    );
                 }
+
             } catch (error) {
-                console.error('Error:', error);
+                console.error('❌ Fetch Error:', error);
                 addBotMessage('Maaf, terjadi kesalahan koneksi. Silakan coba lagi atau hubungi Customer Service kami di ' + tokoData.nomorCS + '. 🙏');
             }
         }
